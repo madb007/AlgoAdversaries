@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import React from 'react';
+import Form from 'react-bootstrap/Form';
 
 const styles = {
   navbar: {
@@ -22,13 +23,13 @@ const styles = {
     textDecoration: 'none',
     marginLeft: '1rem',
   },
-
   button: {
     backgroundColor: '#0056b3',
     borderColor: '#0056b3',
     color: 'white',
     padding: '5px 10px',
     borderRadius: '8px',
+    marginLeft: '1rem',
     transition: 'background-color 0.3s, border-color 0.3s',
   },
   buttonHover: {
@@ -36,58 +37,181 @@ const styles = {
     borderColor: '#003d80',
   },
   modal: {
-    backgroundColor: '#003366',
-    color: 'white',
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',        
+    backgroundColor: 'white',
+    color: 'black',
+    width: '400px',
+    maxWidth: '90%',
+    borderRadius: '10px',
+    padding: '20px',
+    boxShadow: '0 5px 15px rgba(0, 0, 0, 0.3)',
+    zIndex: 1000,
   },
-  modalHeader: {
-    borderBottom: '1px solid white',
+  form: {
+    border: '1px solid #ccc',
+    borderRadius: '8px',
+    padding: '15px',
+    marginBottom: '20px',
   },
-  modalFooter: {
-    borderTop: '1px solid white',
-  },
-  modalTitle: {
-    color: 'white',
+  formInput: {
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    padding: '8px',
+    marginBottom: '20px',
+    width: '100%',
+    boxSizing: 'border-box',
   },
 };
 
-const Navbar: React.FC<NavbarProps> = () => {
-    const [show, setShow] = useState(false);
-    const [hover, setHover] = useState(false);
+const Navbar = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+
+  const [isLoginHover, setLoginHover] = useState(false);
+  const [isRegisterHover, setRegisterHover] = useState(false);
+  const [isCloseHover, setCloseHover] = useState(false);
+  const [isSubmitHover, setSubmitHover] = useState({ login: false, register: false });
+
+  const handleLoginClose = () => setShowLogin(false);
+  const handleLoginShow = () => setShowLogin(true);
+
+  const handleRegisterClose = () => setShowRegister(false);
+  const handleRegisterShow = () => setShowRegister(true);
+
+  const handleLoginSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+    };
+
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    console.log(result.message);
+    // Handle login success or failure
+  };
+
+  const handleRegisterSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = {
+      email: formData.get('email'),
+      password: formData.get('password'),
+    };
+
+    const response = await fetch('/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    const result = await response.json();
+    console.log(result.message);
+    // Handle registration success or failure
+  };
+
+  return (
+    <>
+      <div style={styles.navbar}>
+        <Button
+          variant="primary"
+          onClick={handleLoginShow}
+          style={isLoginHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+          onMouseEnter={() => setLoginHover(true)}
+          onMouseLeave={() => setLoginHover(false)}
+        >
+          Sign In
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={handleRegisterShow}
+          style={isRegisterHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+          onMouseEnter={() => setRegisterHover(true)}
+          onMouseLeave={() => setRegisterHover(false)}
+        >
+          Sign Up
+        </Button>
+      </div>
   
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const handleMouseEnter = () => setHover(true);
-    const handleMouseLeave = () => setHover(false);
-  
-    return (
-      <>
-        <div style={styles.navbar}>
+      <Modal show={showLogin} onHide={handleLoginClose} centered style={styles.modal}>
+          <strong>Login</strong>
+          <Form onSubmit={handleLoginSubmit} style={styles.form}>
+            <Form.Group controlId="formLoginEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" name="email" required style={styles.formInput}/>
+            </Form.Group>
+            <Form.Group controlId="formLoginPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" required style={styles.formInput}/>
+            </Form.Group>
             <Button
-              style={{ ...styles.button, ...(hover ? styles.buttonHover : {}) }}
               variant="primary"
-              onClick={handleShow}
-              onMouseEnter={handleMouseEnter}
-              onMouseLeave={handleMouseLeave}
+              type="submit"
+              style={isSubmitHover.login ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setSubmitHover((prev) => ({ ...prev, login: true }))}
+              onMouseLeave={() => setSubmitHover((prev) => ({ ...prev, login: false }))}
             >
-              Sign in
+              Login
             </Button>
-        </div>
-  
-        <Modal show={show} onHide={handleClose} centered>
-          <Modal.Header closeButton style={styles.modalHeader}>
-            <Modal.Title style={styles.modalTitle}>Sign In</Modal.Title>
-          </Modal.Header>
-          <Modal.Body style={styles.modal}>
-            {/* Add your form here */}
-          </Modal.Body>
-          <Modal.Footer style={styles.modalFooter}>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button
+              variant="secondary"
+              onClick={handleLoginClose}
+              style={isCloseHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setCloseHover(true)}
+              onMouseLeave={() => setCloseHover(false)}
+            >
               Close
             </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-    );
-  };
-  
-  export default Navbar;
+          </Form>
+      </Modal>
+   
+
+      <Modal show={showRegister} onHide={handleRegisterClose} centered style={styles.modal}>
+          <strong>Register</strong>
+          <Form onSubmit={handleRegisterSubmit} style={styles.form}>
+            <Form.Group controlId="formRegisterEmail">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" name="email" required style={styles.formInput}/>
+            </Form.Group>
+            <Form.Group controlId="formRegisterPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" required style={styles.formInput}/>
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="submit"
+              style={isSubmitHover.register ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setSubmitHover((prev) => ({ ...prev, register: true }))}
+              onMouseLeave={() => setSubmitHover((prev) => ({ ...prev, register: false }))}
+            >
+              Register
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={handleRegisterClose}
+              style={isCloseHover ? { ...styles.button, ...styles.buttonHover } : styles.button}
+              onMouseEnter={() => setCloseHover(true)}
+              onMouseLeave={() => setCloseHover(false)}
+            >
+              Close
+            </Button>
+          </Form>
+      </Modal>
+    </>
+  );
+};
+
+export default Navbar;

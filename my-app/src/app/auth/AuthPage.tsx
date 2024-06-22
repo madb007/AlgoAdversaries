@@ -45,9 +45,9 @@ const AuthPage: React.FC<AuthPageProps> = () => {
       <div style={styles.imageContainer}>
         <img src="AlgoAdversaries.png" alt="AlgoAdversaries" style={styles.image} />
       </div>
-      <div style={styles.textContainer}>
-        <TextGenerator text={"1 fn main(){ \n \n2      println!('Welcome! Sign in to start coding!'); \n \n3 }"} color = 'white' fontSize = '2em' />
-      </div>
+      {/* {/* <div style={styles.textContainer}>
+        {/* <TextGenerator text={"1 fn main(){ \n \n2      println!('Welcome! Sign in to start coding!'); \n \n3 }"} color = 'white' fontSize = '2em' /> */}
+      {/* </div> */} 
     </div>
   );
 };
