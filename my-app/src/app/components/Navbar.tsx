@@ -81,25 +81,35 @@ const Navbar = () => {
   const handleRegisterClose = () => setShowRegister(false);
   const handleRegisterShow = () => setShowRegister(true);
 
-  const handleLoginSubmit = async (event: { preventDefault: () => void; target: HTMLFormElement | undefined; }) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = {
       email: formData.get('email'),
       password: formData.get('password'),
     };
-
-    const response = await fetch('/login', {
+    try{
+      const response = await fetch('http://localhost:3001/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    });
+      });
 
-    const result = await response.json();
-    console.log(result.message);
-    // Handle login success or failure
+      const result = await response.json();
+      console.log(result.message);
+      if (response.ok) {
+        console.log('Login successful:', result.message);
+        window.location.href = '/problems';
+      }   
+      else {
+        console.log('Login failed:', result.message);
+      }
+    }
+    catch (error){
+      console.error('Error during login:', error);
+    }
   };
 
   const handleRegisterSubmit = async (event) => {
@@ -109,18 +119,21 @@ const Navbar = () => {
       email: formData.get('email'),
       password: formData.get('password'),
     };
-
-    const response = await fetch('/register', {
+    try{
+      const response = await fetch('http://localhost:3001/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-    console.log(result.message);
-    // Handle registration success or failure
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log(result.message);
+    }
+    catch (error){
+      console.error('Error during registration:', error);
+    }
+    
   };
 
   return (
@@ -149,7 +162,7 @@ const Navbar = () => {
       <Modal show={showLogin} onHide={handleLoginClose} centered style={styles.modal}>
           <strong>Login</strong>
           <Form onSubmit={handleLoginSubmit} style={styles.form}>
-            <Form.Group controlId="formLoginEmail">
+              <Form.Group controlId="formLoginEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" name="email" required style={styles.formInput}/>
             </Form.Group>
