@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import AuthPage from './auth/AuthPage';
+import {AuthProvider} from './context/AuthContext';
+import './globals.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -14,7 +15,7 @@ export default function RootLayout({
   return (
     <>
     <html lang="en">
-      <body>{children}</body>
+      <body><AuthProvider>{children}</AuthProvider></body>
     </html> 
     </>
   )
