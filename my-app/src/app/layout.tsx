@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {AuthProvider} from './context/AuthContext';
 import './globals.css';
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -15,7 +17,7 @@ export default function RootLayout({
   return (
     <>
     <html lang="en">
-      <body><AuthProvider>{children}</AuthProvider></body>
+      <body><AuthProvider><ToastContainer/>{children}</AuthProvider></body>
     </html> 
     </>
   )

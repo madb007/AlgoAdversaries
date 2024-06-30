@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
+import { useRouter } from 'next/navigation';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -16,9 +19,11 @@ const Navbar = () => {
 
   const { isAuthenticated,login } = useAuth();
 
+  const router = useRouter();
+
   useEffect(() => {
     if (isAuthenticated) {
-      window.location.href = '/problems';
+      router.push('/home');
     }
   }, [isAuthenticated]);
 
@@ -45,14 +50,14 @@ const Navbar = () => {
         login();
         setTimeout(() => {
           console.log('Redirecting to problems page');
-          window.location.href = '/problems';
+          router.push('/home');
         }, 0);
       } 
       else {
-        console.log('Login failed:', result.message);
+        toast.error(result.message, {position: "top-center", autoClose: 2000});
       }
     } catch (error) {
-      console.error('Error during login:', error);
+      toast.error(error, {position: "top-center", autoClose: 2000});
     }
   };
 
@@ -72,9 +77,9 @@ const Navbar = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      console.log(result.message);
+      toast.success(result.message, {position: "top-center", autoClose: 2000});
     } catch (error) {
-      console.error('Error during registration:', error);
+      toast.error(error, {position: "top-center", autoClose: 2000});
     }
   };
 
