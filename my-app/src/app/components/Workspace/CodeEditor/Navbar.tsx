@@ -5,6 +5,7 @@ type NavbarProps = {
   setLanguage: (language: string) => void;
 };
 
+// Frontend Code for Navbar In Problems Page
 const Navbar: React.FC<NavbarProps> = ({ setLanguage }) => {
   return (
     <div className='flex items-center justify-between bg-gray-800 h-11 w-full'>
@@ -20,12 +21,6 @@ const Navbar: React.FC<NavbarProps> = ({ setLanguage }) => {
       </div>
 
       <div className='flex items-center m-1'>
-        <button className='relative rounded px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex ml-auto p-1 mr-2 hover:bg-dark-fill-3 group'>
-          <div className='h-4 w-4 text-dark-gray-6 font-bold text-lg m-4'>
-            <AiOutlineSetting />
-          </div>
-        </button>
-
         <button className='relative rounded px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex ml-auto p-1 mr-2 hover:bg-dark-fill-3 group'>
           <div className='h-4 w-4 text-dark-gray-6 font-bold text-lg'>
             <AiOutlineFullscreen />

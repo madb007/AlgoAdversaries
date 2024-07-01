@@ -5,6 +5,7 @@
     "@codemirror/lang-javascript": "github:codemirror/lang-javascript",
     "@codemirror/lang-python": "^6.1.6",
     "@codemirror/theme-one-dark": "^6.1.2",
+    "@uiw/codemirror-theme-github": "^4.22.2",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "codemirror": "^6.0.1",

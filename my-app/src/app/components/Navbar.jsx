@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+//Navbar for auth page
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
@@ -21,6 +22,7 @@ const Navbar = () => {
 
   const router = useRouter();
 
+  //dont allow user to login again
   useEffect(() => {
     if (isAuthenticated) {
       router.push('/home');

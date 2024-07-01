@@ -1,21 +1,31 @@
-'use client';
-import Topbar from '@/app/components/Topbar';
-import React from 'react';
-import Timer from '@/app/components/Timer';
-import Workspace from '@/app/components/Workspace/Workspace';
+import Topbar from "@/app/components/Topbar";
+import Workspace from "@/app/components/Workspace/Workspace";
+import { problems } from "@/app/utils/problems";
+import { Problem } from "@/app/utils/types/problemStructure";
+import { notFound } from "next/navigation";
 
-type ProblemPageProps = {};
+export default function ProblemPage({ params }: { params: { pid: string } }) {
+  const problem = problems[params.pid];
 
-const ProblemPage: React.FC<ProblemPageProps> = () => {
-    return (
-        <div className="relative">
-            <Topbar problemPage={true} />
-            <div className="absolute top-5 right-[12%] z-50">
-                <Timer />
-            </div>
-            <Workspace/>
-        </div>
-    );
+  if (!problem) {
+    notFound();
+  }
+
+  const serializedProblem: Problem = {
+    ...problem,
+    handlerFunction: problem.handlerFunction.toString(),
+  };
+
+  return (
+    <div>
+      <Topbar problemPage />
+      <Workspace problem={serializedProblem} />
+    </div>
+  );
 }
 
-export default ProblemPage;
+export async function generateStaticParams() {
+  return Object.keys(problems).map((key) => ({
+    pid: key,
+  }));
+}

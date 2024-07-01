@@ -1,11 +1,17 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import Split from 'react-split';
 import ProblemDescription from './ProblemDescription/ProblemDescription';
-import CodeEditor from './CodeEditor/CodeEditor'
+import CodeEditor from './CodeEditor/CodeEditor';
+import {Problem} from '@/app/utils/types/problemStructure';
 
-type WorkspaceProps = {};
+type WorkspaceProps = {
+    problem: Problem;
+};
 
-const Workspace: React.FC<WorkspaceProps> = () => {
+//Right Hand Side of Problems Page
+const Workspace: React.FC<WorkspaceProps> = ({problem}) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -30,8 +36,8 @@ const Workspace: React.FC<WorkspaceProps> = () => {
             snapOffset={30}
             dragInterval={5}
         >
-            <ProblemDescription />
-            <CodeEditor/>
+            <ProblemDescription problem={problem}/>
+            <CodeEditor problem = {problem}/>
         </Split>
     );
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useEffect, useState } from "react";
 import { FiRefreshCcw, FiPlay, FiPause } from "react-icons/fi";
 
@@ -5,7 +7,7 @@ type TimerProps = {};
 
 const Timer: React.FC<TimerProps> = () => {
 	const [time, setTime] = useState<number>(0);
-	const [isRunning, setIsRunning] = useState<boolean>(false);
+	const [isRunning, setIsRunning] = useState<boolean>(true);
 
 	const formatTime = (time: number): string => {
 		const minutes = Math.floor(time / 60);

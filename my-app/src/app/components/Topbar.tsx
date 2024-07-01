@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -23,11 +25,11 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
         <div>
             <div className="fixed top-0 left-0 right-0 z-50 p-4 text-white text-lg grid grid-cols-3 items-center">
                 <div></div>
-                <div className="flex justify-center">
+                <div className=" flex justify-center">
                     {problemPage && (
                         <Link
                             href='/home'
-                            className='flex items-center gap-2 font-medium text-white cursor-pointer bg-gray-700 hover:bg-gray-800 px-3 py-2 rounded'
+                            className='flex items-center gap-2 font-medium text-white cursor-pointer transparent px-3 py-2 rounded'
                         >
 
                             <BsList />
@@ -38,7 +40,7 @@ const Topbar: React.FC<TopbarProps> = ({ problemPage }) => {
                 <div className="flex justify-end">
                     <button
                         onClick={handleLogout}
-                        className="bg-gray-700 border border-gray-700 text-white px-4 py-2 rounded transition duration-300 hover:bg-gray-800"
+                        className="transparent text-white px-4 py-2 rounded transition duration-300"
                     >
                         Logout
                     </button>
