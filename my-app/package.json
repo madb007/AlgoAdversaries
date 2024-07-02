@@ -21,6 +21,7 @@
     "pg": "^8.12.0",
     "react": "^18",
     "react-bootstrap": "^2.10.2",
+    "react-confetti": "^6.1.0",
     "react-dom": "^18"
   },
   "devDependencies": {

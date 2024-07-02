@@ -18,14 +18,29 @@ app.use(session({ secret: 'secret-key', resave: false, saveUninitialized: true }
 
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
-  const hashedpword = await bcrypt.hash(password,10);
-  const query = "INSERT INTO users (email, password) VALUES ($1, $2)"
-  try{
-    await db.query(query, [email,hashedpword]);
-    res.status(201).json({message: 'Successfully registered'});
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
   }
-  catch (err){
-    res.status(500).json({message: 'Unsucessful Registration; Try again'});
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const query = 'INSERT INTO users (email, password) VALUES ($1, $2)';
+
+    await db.query(query, [email, hashedPassword]);
+
+    res.status(201).json({ message: 'Successfully registered' });
+  } catch (err) {
+    console.error('Registration error:', err);
+
+    // Check if the error is a duplicate key error (e.g., email already exists)
+    if (err.code === '23505') { // PostgreSQL unique_violation error code
+      return res.status(409).json({ message: 'Email already exists' });
+    }
+
+    // For other errors, send a generic error response
+    res.status(500).json({ message: 'Unsuccessful registration; Try again' });
   }
 });
 

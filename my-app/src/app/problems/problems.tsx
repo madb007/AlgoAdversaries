@@ -14,7 +14,20 @@ export const problems: Problem[] = [
 		difficulty: "Easy",
 		category: "Array",
 		order: 1,
-		solution: "8-k1C6ehKuw",
+		solution: 'class Solution {\
+            public:\
+              vector<int> twoSum(vector<int>& nums, int target) {\
+                unordered_map<int, int> numMap;\
+                for (int i = 0; i < nums.size(); i++) {\
+                    int complement = target - nums[i];\
+                    if (numMap.count(complement)) {\
+                        return {numMap[complement], i};\
+                    }\
+                    numMap[nums[i]] = i;\
+                }\
+                return {};\
+              }\
+            };',
 	},
 	{
 		id: "reverse-linked-list",
@@ -22,7 +35,19 @@ export const problems: Problem[] = [
 		difficulty: "Hard",
 		category: "Linked List",
 		order: 2,
-		solution: "",
+		solution: 'class Solution {\
+            public:\
+                ListNode* reverseList(ListNode* head) {\
+                    ListNode* node = nullptr;\
+                    while (head != nullptr) {\
+                        ListNode* temp = head->next;\
+                        head->next = node;\
+                        node = head;\
+                        head = temp;\
+                    }\
+                    return node;\
+                }\
+            };',
 	},
 	{
 		id: "jump-game",
@@ -38,7 +63,7 @@ export const problems: Problem[] = [
 		difficulty: "Easy",
 		category: "Stack",
 		order: 4,
-		solution: "xty7fr-k0TU",
+		solution: "",
 	},
 	{
 		id: "search-a-2d-matrix",
@@ -46,7 +71,7 @@ export const problems: Problem[] = [
 		difficulty: "Medium",
 		category: "Binary Search",
 		order: 5,
-		solution: "ZfFl4torNg4",
+		solution: "",
 	},
 	{
 		id: "container-with-most-water",
@@ -70,7 +95,7 @@ export const problems: Problem[] = [
 		difficulty: "Easy",
 		category: "Tree",
 		order: 8,
-		solution: "4qYTqOiRMoM",
+		solution: "",
 	},
 	{
 		id: "best-time-to-buy-and-sell-stock",

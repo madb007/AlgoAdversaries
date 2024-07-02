@@ -6,6 +6,8 @@ import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {doc, setDoc} from 'firebase/firestore';
+import {firestore} from '../firebase/firebase';
 
 //Navbar for auth page
 const Navbar = () => {
@@ -49,7 +51,8 @@ const Navbar = () => {
       console.log(result.message);
       if (response.ok) {
         console.log('Login successful:', result.message);
-        login();
+        const userData = {email:data.email};
+        login(userData);
         setTimeout(() => {
           console.log('Redirecting to problems page');
           router.push('/home');
@@ -79,7 +82,19 @@ const Navbar = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      toast.success(result.message, {position: "top-center", autoClose: 2000});
+      toast.info(result.message, {position: "top-center", autoClose: 2000});
+
+        const userData = {
+          email: data.email,
+          password: data.password,
+          createdAt: Date.now(),
+          solvedProblems: [],
+          starredProblems: [],
+        };
+      
+      await setDoc(doc(firestore,"users",data.email),userData);
+      console.log('User data added to Firestore');
+
     } catch (error) {
       toast.error(error, {position: "top-center", autoClose: 2000});
     }

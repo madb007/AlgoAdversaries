@@ -12,25 +12,36 @@ export const AuthProvider = ({ children }) => {
     return false;
   });
 
+  const [user, setUser] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const storedUser = localStorage.getItem('user');
+      return storedUser ? JSON.parse(storedUser) : null;
+    }
+    return null;
+  });
+
   useEffect(() => {
     if (typeof window !== 'undefined') {
       localStorage.setItem('isAuthenticated', isAuthenticated);
+      localStorage.setItem('user', JSON.stringify(user));
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user]);
 
-  const login = () => {
+  const login = (userData) => {
     console.log('Login function called');
+    setUser(userData);
     setIsAuthenticated(true);
   };
 
   const logout = () => {
     setIsAuthenticated(false);
+    setUser(null);
   };
 
   console.log('AuthProvider render, isAuthenticated:', isAuthenticated);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
