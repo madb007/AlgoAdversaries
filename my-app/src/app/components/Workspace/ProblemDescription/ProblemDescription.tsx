@@ -138,7 +138,7 @@ function useGetUserDataOnProblem(problemId:string){
 				const data = userSnap.data();
 				const {solvedProblems,starredProblems} = data;
 				setData({
-					starred: starredProblems.includes(starredProblems),
+					starred: starredProblems.includes(problemId),
 					solved:solvedProblems.includes(problemId),
 				})
 			}
