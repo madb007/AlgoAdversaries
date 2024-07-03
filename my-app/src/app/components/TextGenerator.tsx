@@ -3,7 +3,7 @@
 // Debug one character string issues
 import React, { useState, useEffect } from 'react';
 
-const TextGenerator = ({ text, color = 'black',fontSize = '1em', position = 'relative',speed = 100 }) => {
+const TextGenerator = ({ text='', color = 'black',fontSize = '1em', position = 'relative',speed = 100 }) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {

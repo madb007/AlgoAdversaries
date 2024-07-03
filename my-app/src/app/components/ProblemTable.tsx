@@ -86,7 +86,7 @@ const ProblemTable: React.FC<ProblemTableProps> = ({ setLoadingProblems, loading
                                                     <GiArtificialIntelligence
                                                         fontSize={"18"}
                                                         className="cursor-pointer hover:text-green-500"
-                                                        onClick={() => openModal(problem.solution)}
+                                                        onClick={() => openModal(problem.solution!)}
                                                     />
                                                 ) : (
                                                     <p className='text-gray-500'>No Solution</p>
