@@ -3,16 +3,22 @@
 // Debug one character string issues
 import React, { useState, useEffect } from 'react';
 
-const TextGenerator = ({ text, color = 'white',fontSize = '1em', position = 'relative',speed = 100 }) => {
+const TextGenerator = ({ text, color = 'black',fontSize = '1em', position = 'relative',speed = 100 }) => {
   const [displayedText, setDisplayedText] = useState('');
 
   useEffect(() => {
     let index = 0;
-    setDisplayedText(text[0])
+    let currentText = '';
     const interval = setInterval(() => {
-      setDisplayedText((prev) => prev + text[index]);
-      index++;
-      if (index === text.length - 1) {
+      if (index < text.length) {
+        if (text[index] === '\\') {
+          currentText += '\n';
+        } else {
+          currentText += text[index];
+        }
+        setDisplayedText(currentText);
+        index++;
+      } else {
         clearInterval(interval);
       }
     }, speed);

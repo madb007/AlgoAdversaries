@@ -28,6 +28,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ problem, setSuccess, setSolved 
     const [activeTestCase, setActiveTestCase] = useState<number>(0);
     let [userCode, setUserCode] = useState<string>(problem.starterCode);
     const [pid, setPid] = useState<string | undefined>(undefined);
+    
 
     const params = useParams();
     const searchParams = useSearchParams();
@@ -106,9 +107,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ problem, setSuccess, setSolved 
     useEffect(() => {
         // Update the editor content when userCode changes
         if (viewRef.current && userCode !== viewRef.current.state.doc.toString()) {
-            viewRef.current.dispatch({
+            const transaction = viewRef.current.state.update({
                 changes: { from: 0, to: viewRef.current.state.doc.length, insert: userCode },
             });
+            viewRef.current.dispatch(transaction);
         }
     }, [userCode]);
 
@@ -124,7 +126,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ problem, setSuccess, setSolved 
     return (
         <div className='flex flex-col bg-gray-700 relative'>
             <Navbar setLanguage={setLanguage} />
-            <Split className='h-[calc(100vh-94px)]' direction='vertical' sizes={[60, 40]} minSize={60}>
+            <Split className='h-[calc(100vh-125px)]' direction='vertical' sizes={[50, 50]} minSize={60}>
                 <div className='w-full overflow-auto'>
                     <div ref={editorRef}></div>
                 </div>

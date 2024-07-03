@@ -5,6 +5,7 @@ import { Problem } from "@/app/utils/types/problemStructure";
 import { notFound } from "next/navigation";
 
 export default function ProblemPage({ params }: { params: { pid: string } }) {
+  
   const problem = problems[params.pid];
 
   if (!problem) {
