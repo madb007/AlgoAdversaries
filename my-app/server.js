@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const port = 3001;
+
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const db = require('./authdb');
@@ -78,6 +78,7 @@ app.get('/problems', isAuthenticated, (req, res) => {
   res.status(200).json({message: 'Welcome to the problems'});
 });
 
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
