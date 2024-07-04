@@ -8,13 +8,19 @@ const session = require('express-session');
 const db = require('./authdb');
 //require('dotenv').config();
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  credentials: true
+}));
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({ secret: 'secret-key', resave: false, saveUninitialized: true }));
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Algo Adversaries API');
+});
 
 app.post('/register', async (req, res) => {
   const { email, password } = req.body;
@@ -78,7 +84,7 @@ app.get('/problems', isAuthenticated, (req, res) => {
   res.status(200).json({message: 'Welcome to the problems'});
 });
 
-const port = process.env.PORT || 3001;
+const port = process.env.NEXT_PUBLIC_API_URL || 3001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
