@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "dev": "next dev",
     "build": "next build",
     "start:next": "next start",
