@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { BsCheckCircle, BsYoutube } from 'react-icons/bs';
 import { GiArtificialIntelligence } from 'react-icons/gi';
 import { collection, doc, getDoc, getDocs, orderBy, query } from "firebase/firestore";
-import { firestore } from '../firebase/firebase';
+import { firestore } from '@/app/firebase/firebase';
 import { DBProblem } from '../utils/types/problemStructure';
 import { useAuth } from '@/app/context/AuthContext';
 import TextGenerator from '@/app/components/TextGenerator';
