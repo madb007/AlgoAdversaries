@@ -6,7 +6,7 @@ const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const db = require('./authdb');
-require('dotenv').config();
+//require('dotenv').config();
 const cors = require('cors');
 app.use(cors());
 
