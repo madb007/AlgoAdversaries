@@ -2,11 +2,11 @@
 
 import { BsCheck2Circle } from "react-icons/bs";
 import { TiStarOutline } from "react-icons/ti";
-import { Problem,DBProblem } from '@/app/utils/types/problemStructure'
+import { Problem,DBProblem } from '../../../utils/types/problemStructure'
 import { useEffect, useState } from "react";
-import { firestore } from '@/app/firebase/firebase' 
+import { firestore } from '../../../firebase/firebase' 
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc} from 'firebase/firestore';
-import {useAuth} from '@/app/context/AuthContext';
+import {useAuth} from '../../../context/AuthContext';
 import { AiFillStar, AiOutlineLoading3Quarters } from "react-icons/ai";
 
 

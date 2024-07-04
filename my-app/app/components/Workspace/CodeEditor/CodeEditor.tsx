@@ -7,11 +7,11 @@ import { githubDark } from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Problem } from '@/app/utils/types/problemStructure';
-import { problems } from '@/app/utils/problems';
-import { useAuth } from '@/app/context/AuthContext';
+import { Problem } from '../../../utils/types/problemStructure';
+import { problems } from '../../../utils/problems';
+import { useAuth } from '../../../context/AuthContext';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
-import { firestore } from '@/app/firebase/firebase';
+import { firestore } from '../../../firebase/firebase';
 
 type CodeEditorProps = {
     problem: Problem;

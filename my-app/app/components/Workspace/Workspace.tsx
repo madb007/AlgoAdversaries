@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Split from 'react-split';
 import ProblemDescription from './ProblemDescription/ProblemDescription';
 import CodeEditor from './CodeEditor/CodeEditor';
-import {Problem} from '@/app/utils/types/problemStructure';
+import {Problem} from '../../utils/types/problemStructure';
 import Confetti from 'react-confetti';
 
 type WorkspaceProps = {

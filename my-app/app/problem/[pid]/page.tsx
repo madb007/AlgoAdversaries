@@ -1,7 +1,7 @@
-import Topbar from "@/app/components/Topbar";
-import Workspace from "@/app/components/Workspace/Workspace";
-import { problems } from "@/app/utils/problems";
-import { Problem } from "@/app/utils/types/problemStructure";
+import Topbar from "../../components/Topbar";
+import Workspace from "../../components/Workspace/Workspace";
+import { problems } from "../../utils/problems";
+import { Problem } from "../../utils/types/problemStructure";
 import { notFound } from "next/navigation";
 
 export default function ProblemPage({ params }: { params: { pid: string } }) {
