@@ -5,6 +5,13 @@ const starterCodeTwoSum = `function twoSum(nums,target){
   // Write your code here
 };`;
 
+function arraysEqual(arr1: Array<number>, arr2: Array<number>) {
+    if (arr1.length !== arr2.length) return false;
+    const sorted1 = [...arr1].sort((a, b) => a - b);
+    const sorted2 = [...arr2].sort((a, b) => a - b);
+    return sorted1.every((value, index) => value === sorted2[index]);
+}    
+
 // checks if the user has the correct code
 const handlerTwoSum = (fn: any) => {
     // fn is the callback that user's code is passed into
@@ -21,12 +28,13 @@ const handlerTwoSum = (fn: any) => {
             [1, 2],
             [0, 1],
         ];
+    
 
         // loop all tests to check if the user's code is correct
         for (let i = 0; i < nums.length; i++) {
             // result is the output of the user's function and answer is the expected output
             const result = fn(nums[i], targets[i]);
-            assert.deepStrictEqual(result, answers[i]);
+            assert(arraysEqual(result, answers[i]), `Test case ${i + 1} failed: expected ${answers[i]}, but got ${result}`);
         }
         return true;
     } catch (error: any) {

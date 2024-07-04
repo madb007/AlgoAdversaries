@@ -33,7 +33,7 @@ function threeSum(nums) {
 
 export const threeSum: Problem = {
     id: "3sum",
-    title: "9. 3Sum",
+    title: "6. 3Sum",
     problemStatement: `<p class='mt-3'>Given an integer array nums, return all the triplets <code>[nums[i], nums[j], nums[k]]</code> such that <code>i != j</code>, <code>i != k</code>, and <code>j != k</code>, and <code>nums[i] + nums[j] + nums[k] == 0</code>.</p>
     <p>Notice that the solution set must not contain duplicate triplets.</p>`,
     examples: [
@@ -60,5 +60,5 @@ export const threeSum: Problem = {
     handlerFunction: threeSumHandler,
     difficulty: "Medium",
     starterFunctionName: "function threeSum(",
-    order: 9,
+    order: 6,
 };

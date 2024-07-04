@@ -29,7 +29,7 @@ function knight(start, end) {
 
 export const shortestKnightPath: Problem = {
     id: "shortest-knight-path",
-    title: "6. Shortest Knight Path",
+    title: "8. Shortest Knight Path",
     problemStatement: `<p class='mt-3'>Given two different positions on a chess board, find the least number of moves it would take a knight to get from one to the other. The positions will be passed as two arguments in algebraic notation.</p>
     <p>For example, knight("a3", "b5") should return 1.</p>
     <p>The knight is moved according to the rules of chess, along two squares and then one square perpendicular to the last two.</p>`,
@@ -68,5 +68,5 @@ export const shortestKnightPath: Problem = {
     handlerFunction: shortestKnightPathHandler,
     difficulty: "Hard",
     starterFunctionName: "function knight(",
-    order: 6,
+    order: 8,
 };

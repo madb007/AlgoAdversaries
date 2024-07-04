@@ -28,7 +28,7 @@ function countDivisibleSubsequences(N, K, A) {
 
 export const chefAndSubsequences: Problem = {
     id: "chef-and-subsequences",
-    title: "5. Chef and Subsequences",
+    title: "9. Chef and Subsequences",
     problemStatement: `<p class='mt-3'>Chef has an array A of N integers. He wants to find the number of subsequences of A that have a sum divisible by K.</p>
     <p>A subsequence of an array is obtained by deleting some (possibly zero or all) elements from the array without changing the order of the remaining elements.</p>`,
     examples: [
@@ -50,5 +50,5 @@ export const chefAndSubsequences: Problem = {
     handlerFunction: chefAndSubsequencesHandler,
     difficulty: "Hard",
     starterFunctionName: "function countDivisibleSubsequences(",
-    order: 5,
+    order: 9,
 };
