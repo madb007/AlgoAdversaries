@@ -9,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import {doc, setDoc} from 'firebase/firestore';
 import {firestore} from '../firebase/firebase';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
+
 //Navbar for auth page
 const Navbar = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -39,7 +41,7 @@ const Navbar = () => {
       password: formData.get('password'),
     };
     try {
-      const response = await fetch('http://localhost:3001/login', {
+      const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +76,7 @@ const Navbar = () => {
       password: formData.get('password'),
     };
     try {
-      const response = await fetch('http://localhost:3001/register', {
+      const response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
