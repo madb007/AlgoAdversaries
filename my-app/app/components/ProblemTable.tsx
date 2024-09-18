@@ -106,6 +106,7 @@ const ProblemTable: React.FC<ProblemTableProps> = ({ setLoadingProblems, loading
                     ))}
                 </div>
             )}
+            
             <Modal isOpen={isModalOpen} onClose={closeModal}>
                 {selectedSolution && (
                     <TextGenerator text={selectedSolution} />
