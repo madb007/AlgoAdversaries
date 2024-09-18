@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {doc, setDoc} from 'firebase/firestore';
-import {firestore} from '../firebase/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { firestore } from '../firebase/firebase';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -22,7 +22,7 @@ const Navbar = () => {
   const handleRegisterClose = () => setShowRegister(false);
   const handleRegisterShow = () => setShowRegister(true);
 
-  const { isAuthenticated,login } = useAuth();
+  const { isAuthenticated, login } = useAuth();
 
   const router = useRouter();
 
@@ -53,18 +53,18 @@ const Navbar = () => {
       console.log(result.message);
       if (response.ok) {
         console.log('Login successful:', result.message);
-        const userData = {email:data.email};
+        const userData = { email: data.email };
         login(userData);
         setTimeout(() => {
           console.log('Redirecting to problems page');
           router.push('/home');
         }, 0);
-      } 
+      }
       else {
-        toast.error(result.message, {position: "top-center", autoClose: 2000});
+        toast.error(result.message, { position: "top-center", autoClose: 2000 });
       }
     } catch (error) {
-      toast.error(error, {position: "top-center", autoClose: 2000});
+      toast.error(error, { position: "top-center", autoClose: 2000 });
     }
   };
 
@@ -76,7 +76,7 @@ const Navbar = () => {
       password: formData.get('password'),
     };
     try {
-      const response = await fetch(`${API_URL}/login`, {
+      const response = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,21 +84,25 @@ const Navbar = () => {
         body: JSON.stringify(data),
       });
       const result = await response.json();
-      toast.info(result.message, {position: "top-center", autoClose: 2000});
+      if (response.ok) {
+        toast.info(result.message, { position: "top-center", autoClose: 2000 });
 
         const userData = {
           email: data.email,
-          password: data.password,
+          //password: data.password,
           createdAt: Date.now(),
           solvedProblems: [],
           starredProblems: [],
         };
-      
-      await setDoc(doc(firestore,"users",data.email),userData);
-      console.log('User data added to Firestore');
 
+        await setDoc(doc(firestore, "users", data.email), userData);
+        console.log('User data added to Firestore');
+      }
+      else {
+        toast.error(result.message, {position: "top-center", autoClose: 2000});
+      }
     } catch (error) {
-      toast.error(error, {position: "top-center", autoClose: 2000});
+      toast.error(error, { position: "top-center", autoClose: 2000 });
     }
   };
 
