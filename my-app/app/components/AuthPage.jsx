@@ -97,6 +97,9 @@ const Navbar = () => {
 
         await setDoc(doc(firestore, "users", data.email), userData);
         console.log('User data added to Firestore');
+      
+        login({email:data.email});
+        router.push('/home');
       }
       else {
         toast.error(result.message, {position: "top-center", autoClose: 2000});
