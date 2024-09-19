@@ -7,7 +7,7 @@ import {AuthProvider} from './context/AuthContext';
 
 export default function Home() {
   return (
-    <div className="bg-[#020121] min-h-screen flex flex-col justify-center items-center m-0 p-0 relative">
+    <div className="bg-[#040329] min-h-screen flex flex-col justify-center items-center m-0 p-0 relative">
       <Head>
         <title>AlgoAdversaries - Sharpen Your Coding Skills</title>
         <meta name="description" content="Practice coding challenges and improve your algorithm skills with AlgoAdversaries" />
