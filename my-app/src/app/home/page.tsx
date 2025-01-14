@@ -1,12 +1,12 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../../context/AuthContext';
 import { useRouter } from 'next/navigation';
-import Topbar from '../components/Topbar';
+import Topbar from '../../components/Topbar';
 import { doc, setDoc } from "firebase/firestore"; 
 import { firestore } from '../firebase/firebase';
-import ProblemTable from '../components/ProblemTable';
+import ProblemTable from '../../components/ProblemTable';
 
 const ProblemsPage = () => {
   const [loadingProblems, setLoadingProblems] = useState(true);

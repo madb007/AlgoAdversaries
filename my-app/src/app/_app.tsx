@@ -2,7 +2,7 @@ import "./globals.css";
 import type {AppProps} from "next/app";
 import Head from "next/head";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {AuthProvider} from './context/AuthContext';
+import {AuthProvider} from '../context/AuthContext';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useParams, useSearchParams } from 'next/navigation';
+import {useParams, useSearchParams} from 'next/navigation';
 import { toast } from 'react-toastify';
 import Split from 'react-split';
 import { EditorView, basicSetup } from 'codemirror';
@@ -7,11 +7,11 @@ import { githubDark } from '@uiw/codemirror-theme-github';
 import { javascript } from '@codemirror/lang-javascript';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { Problem } from '../../../utils/types/problemStructure';
-import { problems } from '../../../utils/problems';
+import { Problem } from '../../../app/utils/types/problemStructure';
+import { problems } from '../../../app/utils/problems';
 import { useAuth } from '../../../context/AuthContext';
 import { doc, arrayUnion, updateDoc } from 'firebase/firestore';
-import { firestore } from '../../../firebase/firebase';
+import { firestore } from '../../../app/firebase/firebase';
 
 type CodeEditorProps = {
     problem: Problem;
@@ -91,7 +91,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ problem, setSuccess, setSolved 
                     basicSetup,
                     githubDark,
                     javascript(),
-                    EditorView.updateListener.of(update => {
+                    EditorView.updateListener.of((update: { changes: any; state: { doc: { toString: () => any; }; }; }) => {
                         if (update.changes) {
                             const newCode = update.state.doc.toString();
                             setUserCode(newCode);

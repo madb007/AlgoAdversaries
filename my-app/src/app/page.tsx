@@ -1,9 +1,9 @@
 import Head from "next/head";
 import React from 'react';
 import "./globals.css";
-import Navbar from './components/AuthPage';
-import TextGenerator from "./components/TextGenerator";
-import {AuthProvider} from './context/AuthContext';
+import Navbar from '../components/AuthPage';
+import TextGenerator from "../components/TextGenerator";
+import {AuthProvider} from '../context/AuthContext';
 
 export default function Home() {
   return (
