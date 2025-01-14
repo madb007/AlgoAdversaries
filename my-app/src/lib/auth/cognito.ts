@@ -1,5 +1,9 @@
-import {CognitoUserPool, CognitoUser, CognitoUserAttribute, AuthenticationDetails} from 'amazon-cognito-identity-js';
+import {CognitoUserPool, CognitoUser, CognitoUserAttribute, AuthenticationDetails, CognitoUserSession} from 'amazon-cognito-identity-js';
 
+export interface SignInResult {
+    user: CognitoUser,
+    session: CognitoUserSession,
+}
 const poolData = {
     UserPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
     ClientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID!,
@@ -34,7 +38,7 @@ export const authService = {
         });
     },
     
-    async signIn(email: string, password: string) {
+    async signIn(email: string, password: string): Promise<SignInResult> {
         return new Promise((resolve,reject) => {
             const authenticationDetails = new AuthenticationDetails({
                 Username: email,
@@ -47,14 +51,46 @@ export const authService = {
             });
 
             cognitoUser.authenticateUser(authenticationDetails, {
-                onSuccess: (result) =>  {
-                    resolve(result);
+                onSuccess: (session) =>  {
+                    resolve({
+                        user: cognitoUser,
+                        session
+                    });
                 },
                 onFailure: (error) => {
                     reject(error);
                 },
             });
 
+        });
+    },
+
+    async forgotPassword(email: string) {
+        return new Promise((resolve, reject) => {
+            const cognitoUser = new CognitoUser({
+                Username: email,
+                Pool: userPool,
+            })
+
+            cognitoUser.forgotPassword({
+                onSuccess: () => resolve(undefined),
+                onFailure: reject,
+            })
+        });
+
+    },
+    
+    async confirmPassworrd(email: string, code: string, newPassword: string) {
+        return new Promise((resolve, reject) => {
+            const cognitoUser = new CognitoUser({
+                Username: email,
+                Pool: userPool,
+            });
+
+            cognitoUser.confirmPassword(code, newPassword, {
+                onSuccess: () => resolve(undefined),
+                onFailure: reject,
+            });
         });
     },
 
