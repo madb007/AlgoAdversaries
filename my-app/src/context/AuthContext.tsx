@@ -2,30 +2,24 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { authService, SignInResult } from '../lib/auth/cognito';
-import {CognitoUser} from 'amazon-cognito-identity-js';
-import { resolve } from 'path';
+import { useRouter} from 'next/navigation';
 
-interface AuthUser {
-  email : string,
-  cognitoUser?: CognitoUser,
-}
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  user: AuthUser | null;
+  user: any | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  confirmPassword: (email: string, code: string, newPassword: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({children} : {children:React.ReactNode}) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [user, setUser] = useState<any | null>(null);
+  const router = useRouter();
+  
   useEffect(() => {
     checkSession().finally(() => setIsLoading(false));
   },[]);
